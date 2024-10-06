@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import home from '../views/home.vue'
 import {authStore} from '../stores/auth'
 
 
@@ -9,20 +8,29 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/home',
+      
     },
     {
       path: '/home',
       name: 'home',
-      component: () => import('../views/home.vue')
+      component: () => import('../views/home.vue'), // Asegúrate de que esta ruta sea correcta
     },
+
    
     {
     
       path: '/crearReportes',
       name: 'crearReportes',
       component: () => import('../views/CrearReportes.vue')
+    },    
+    
+
+    {
+      path: '/procesoTareas',
+      name: 'procesoTareas',
+      component: () => import('../views/ProcesoTareas.vue')
     },
-   
+    
  
     {
       path: '/solo-logeados',
@@ -38,6 +46,14 @@ const router = createRouter({
 
   ]
 })
+
+
+
+
+
+
+
+
 
 router.beforeEach((to, from, next) => {
   const auth = authStore(); // Obtenemos el store de autenticación

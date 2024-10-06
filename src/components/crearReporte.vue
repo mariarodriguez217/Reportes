@@ -6,16 +6,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr onclick="filaSeleccionada(1)">
+    <tr  @click="filaSeleccionada(1)">
       <td>Proceso de tareas</td>
     </tr>
-    <tr onclick="filaSeleccionada(2)">
+    <tr @click="filaSeleccionada(2)">
       <td>Detalles de tarea</td>
     </tr>
-    <tr onclick="filaSeleccionada(3)">
+    <tr @click="filaSeleccionada(3)">
       <td>Todas las tareas</td>
     </tr>
-    <tr onclick="filaSeleccionada(4)">
+    <tr @click="filaSeleccionada(4)">
       <td>Nuevo reporte</td>
     </tr>
   </tbody>
@@ -27,11 +27,26 @@
 
  
 <script>
-  function filaSeleccionada(fila) {
-    alert("Has seleccionado la fila " + fila);
-    // Aquí puedes ejecutar alguna acción como redirigir a otra página.
+import { useRouter } from 'vue-router'; // Importa useRouter
+
+export default {
+  name: 'ReportesComponent',
+  setup() {
+    const router = useRouter(); // Obtén el objeto router
+
+    const filaSeleccionada = (fila) => {
+      alert("Has seleccionado la fila " + fila);
+      // Navegar a la ruta deseada
+      router.push('/procesoTareas');
+    };
+
+    return {
+      filaSeleccionada
+    };
   }
+}
 </script>
+
   
   
   <style scoped>

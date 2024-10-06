@@ -1,8 +1,11 @@
-<script setup>
-</script>
-
 <template>
-  <main>
-    
-  </main>
+  <div>
+
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'Home',
+};
+</script>
