@@ -1,8 +1,8 @@
 <template>
-    <ProcesoTareas/>
+    <procesoTareas/>
 </template>
 <script setup>
-import procesoTarea from '../components/procesoTareas.vue'
+import procesoTareas from '../components/procesoTareas.vue'
 </script>
 
 <style>

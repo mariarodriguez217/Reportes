@@ -1,13 +1,25 @@
 <template>
-    <div>
-    <p>Total de tareas</p>    
-    <p>Tareas realizadas</p>    
-    <p>Tareas perdientes</p>    
-    </div>
+  <div>
+    <h1>Proceso de Tareas</h1>
+    <p>Filas seleccionadas: {{ filasSeleccionadas }}</p>
+    <ul>
+      <li v-for="fila in filasSeleccionadas" :key="fila">{{ fila }}</li>
+    </ul>
+  </div>
 </template>
 
-
-<script setup>
-
+<script>
+export default {
+  name: 'ProcesoTareas',
+  computed: {
+    filasSeleccionadas() {
+      // Obtener los IDs de las filas seleccionadas desde los parámetros de la ruta
+      return this.$route.query.filas ? this.$route.query.filas.split(',') : [];
+    }
+  }
+}
 </script>
 
+<style scoped>
+/* Estilos específicos para este componente */
+</style>

@@ -11,7 +11,7 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "chart.js": "^4.4.4",
-    "git": "^0.1.5",
+    "mime": "^2.0.3",
     "pinia": "^2.2.2",
     "vue": "^3.4.29",
     "vue-chartjs": "^5.3.1",

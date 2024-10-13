@@ -30,8 +30,21 @@ const router = createRouter({
       name: 'procesoTareas',
       component: () => import('../views/ProcesoTareas.vue')
     },
-    
- 
+    {
+      path: '/detallesTarea',
+      name:'detallesTarea',
+      component:()=> import('../views/DetallesTarea.vue')
+    }  ,
+    {
+      path: '/todasTareas',
+      name:'todasTareas',
+      component:()=> import('../views/TodasTareas.vue')
+    }  ,
+    {
+      path: '/nuevoReporte',
+      name:'nuevoReporte',
+      component:()=> import('../views/NuevoReporte.vue')
+    }  ,
     {
       path: '/solo-logeados',
       name: 'solologin',
