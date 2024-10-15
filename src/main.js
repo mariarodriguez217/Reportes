@@ -11,6 +11,8 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+import VueAxios from 'vue-axios'
+import Axios from 'axios'
 const vuetify = createVuetify({
     components,
     directives,
@@ -23,3 +25,4 @@ app.use(createPinia())
 app.use(router)
 app.use(vuetify)
 app.mount('#app')
+app.use(VueAxios, Axios)
