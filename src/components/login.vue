@@ -1,30 +1,52 @@
 <template>
-  <v-sheet class="mx-auto" width="300">
-    <v-form @submit.prevent="login">
-      <v-text-field
-        v-model="usuario"
-        :rules="usuarioRules"
-        label="Usuario"
-      ></v-text-field>
-      <v-text-field
-        v-model="contraseña"
-        :rules="contraseñaRules"
-        label="Contraseña"
-        type="password"
-      ></v-text-field>
-      <v-btn
-        @click="login"
-        class="ma-2"
-        outlined
-        color="indigo"
-      >
-        Loguearse
-      </v-btn>
-      <v-btn class="ma-2" outlined color="teal">
-        Registrarse
-      </v-btn>
-    </v-form>
-  </v-sheet>
+   <v-container class="d-flex justify-center align-center" fill-height>
+    <v-card width="400" elevation="2" class="pa-5">
+      <v-card-title class="text-h6">Iniciar Sesión</v-card-title>
+      
+      <v-form @submit.prevent="login" ref="loginForm" v-model="formValid">
+        <v-text-field
+          v-model="usuario"
+          :rules="usuarioRules"
+          label="Usuario"
+          outlined
+          required
+        ></v-text-field>
+        
+        <v-text-field
+          v-model="contraseña"
+          :rules="contraseñaRules"
+          label="Contraseña"
+          type="password"
+          outlined
+          required
+        ></v-text-field>
+        
+        <v-alert v-if="errorMessage" type="error" dismissible>
+          {{ errorMessage }}
+        </v-alert>
+        
+        <v-btn
+          :disabled="!formValid"
+          type="submit"
+          color="primary"
+          class="ma-2"
+          block
+        >
+          Loguearse
+        </v-btn>
+        
+        <v-btn
+          color="secondary"
+          class="ma-2"
+          outlined
+          block
+          @click="$router.push('/registro')"
+        >
+          Registrarse
+        </v-btn>
+      </v-form>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -33,6 +55,8 @@ export default {
     return {
       usuario: '',
       contraseña: '',
+      formValid: false,
+      errorMessage: '',
       usuarioRules: [
         value => !!value || 'Debes ingresar un usuario.',
       ],
@@ -43,11 +67,9 @@ export default {
   },
   methods: {
     async login() {
-      // Limpiar espacios en blanco
       const trimmedUser = this.usuario.trim();
       const trimmedPassword = this.contraseña.trim();
 
-      console.log("Intentando login con:", trimmedUser, trimmedPassword); // Verificar los datos ingresados
       try {
         const response = await fetch('http://localhost:3000/auth/login', {
           method: 'POST',
@@ -60,23 +82,16 @@ export default {
           }),
         });
 
-        console.log("Respuesta recibida:", response); // Mostrar la respuesta antes de convertirla
         const data = await response.json();
 
         if (response.ok) {
           console.log('Login exitoso:', data);
-          // Aquí podrías guardar el token si es necesario
-          // localStorage.setItem('token', data.token);
-          
-          // Redirigir al home
-          this.$router.push('/'); // Cambia a la ruta de inicio
+          this.$router.push('/');
         } else {
-          console.error('Error en el login:', data.message);
-          alert(data.message); // Mostrar mensaje de error al usuario
+          this.errorMessage = data.message || 'Error en el login.';
         }
       } catch (error) {
-        console.error('Error en la conexión:', error);
-        alert('Error en la conexión, por favor intenta nuevamente.'); // Mensaje de error al usuario
+        this.errorMessage = 'Error en la conexión, por favor intenta nuevamente.';
       }
     },
   },

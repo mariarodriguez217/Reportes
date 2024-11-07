@@ -2,7 +2,8 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
-import router from './router/index.js'; // Asegúrate de que el nombre de archivo sea correcto
+import router from './router/Index.js'; // Asegúrate de que el nombre de archivo sea correcto
+
 // Vuetify
 import 'vuetify/styles';
 import 'vuetify/dist/vuetify.min.css';

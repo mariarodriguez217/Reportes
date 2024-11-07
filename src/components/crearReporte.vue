@@ -1,70 +1,60 @@
 <template>
-  <table border="3">
-    <thead>
-      <tr>
-        <th>Reportes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="fila in filas" :key="fila.id" @click="filaSeleccionada(fila)">
-        <td>{{ fila.nombre }}</td>
-      </tr>
-    </tbody>
-  </table>
+<v-card>
+    <v-card-title class="text-h5">Reportes</v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="filas"
+      class="elevation-1"
+      hide-default-footer
+      @click:row="filaSeleccionada"
+    >
+      <template v-slot:[`item.nombre`]="{ item }">
+        <v-btn text @click="filaSeleccionada(item)">{{ item.nombre }}</v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
-import { ref } from 'vue'; 
-import { useRouter } from 'vue-router'; // Importa useRouter
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'CrearReporte',
   setup() {
-    const router = useRouter(); // Inicializa el enrutador
+    const router = useRouter()
+    const headers = [
+      { text: 'Reportes', align: 'start', key: 'nombre', sortable: false }
+    ]
+
     const filas = ref([
       { id: 1, nombre: 'Proceso de tareas', ruta: 'procesoTareas' },
       { id: 2, nombre: 'Detalles de tarea', ruta: 'detallesTarea' },
       { id: 3, nombre: 'Todas las tareas', ruta: 'todasTareas' },
       { id: 4, nombre: 'Nuevo reporte', ruta: 'nuevoReporte' },
-    ]);
+    ])
 
     const filaSeleccionada = async (fila) => {
-      // Navega a la ruta de la fila seleccionada
-      await router.push({ name: fila.ruta, query: { filas: fila.id } });
-    };
+      await router.push({ name: fila.ruta, query: { filas: fila.id } })
+    }
 
     return {
+      headers,
       filas,
       filaSeleccionada
-    };
+    }
   }
 }
 </script>
 
 <style scoped>
-table {
+.v-card {
   width: 90%;
-  border-collapse: collapse;
+  margin: auto;
 }
-th {
-  text-align: center;
-  font-size: 30px;
-}
-td {
-  border: 1px solid black;
-  padding: 10px;
+.v-btn {
+  width: 100%;
   text-align: left;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular';
   font-size: 20px;
-}
-tr {
-  height: 80px;
-}
-tbody tr {
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-tbody tr:hover {
-  background-color: #f0f0f0;
 }
 </style>
