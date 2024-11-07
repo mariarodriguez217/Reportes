@@ -99,5 +99,7 @@ export default {
 </script>
 
 <style scoped>
-/* Puedes agregar estilos aquí */
+.v-container {
+  min-height: 100vh;
+}
 </style>
